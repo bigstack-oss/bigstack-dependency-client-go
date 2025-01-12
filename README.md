@@ -1,1 +1,1 @@
-# bigstack-dependency-client-go
+# bigstack-dependency-go
