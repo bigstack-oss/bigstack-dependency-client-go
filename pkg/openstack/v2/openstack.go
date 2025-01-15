@@ -22,7 +22,7 @@ type Helper struct {
 	Storage  *gophercloud.ServiceClient
 	Share    *gophercloud.ServiceClient
 
-	Options *Options
+	*Options
 }
 
 type Option func(*Options)
