@@ -2,6 +2,7 @@ package openstack
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/gophercloud/gophercloud/v2/openstack/compute/v2/hypervisors"
@@ -43,4 +44,24 @@ func (h *Helper) ListHypervisors(opts hypervisors.ListOpts) ([]hypervisors.Hyper
 	}
 
 	return hypervisors.ExtractHypervisors(pages)
+}
+
+func (h *Helper) GetHypervisorByHostname(hostname string) (*hypervisors.Hypervisor, error) {
+	hps, err := h.ListHypervisors(hypervisors.ListOpts{})
+	if err != nil {
+		return nil, err
+	}
+
+	err = fmt.Errorf("hypervisor with hostname %s not found", hostname)
+	if len(hps) == 0 {
+		return nil, err
+	}
+
+	for _, hypervisor := range hps {
+		if hypervisor.HypervisorHostname == hostname {
+			return &hypervisor, nil
+		}
+	}
+
+	return nil, err
 }
