@@ -65,3 +65,9 @@ func (h *Helper) GetHypervisorByHostname(hostname string) (*hypervisors.Hypervis
 
 	return nil, err
 }
+
+func (h *Helper) GetHypervisorUpTime(id string) (*hypervisors.Uptime, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	return hypervisors.GetUptime(ctx, h.Compute, id).Extract()
+}
