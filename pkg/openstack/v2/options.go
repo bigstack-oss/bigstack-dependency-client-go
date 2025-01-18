@@ -13,50 +13,50 @@ var (
 )
 
 type Options struct {
-	ConfFile         string `yaml:"confFile"`
-	IdentityEndpoint string `yaml:"identityEndpoint"`
-	Auth             `yaml:"auth"`
+	ConfFile         string `json:"confFile" yaml:"confFile"`
+	IdentityEndpoint string `json:"identityEndpoint" yaml:"identityEndpoint"`
+	Auth             `json:"auth" yaml:"auth"`
 
-	Domain  `yaml:"domain"`
-	Tenant  `yaml:"tenant"`
-	Project `yaml:"project"`
-	User    `yaml:"user"`
+	Domain  `json:"domain" yaml:"domain"`
+	Tenant  `json:"tenant" yaml:"tenant"`
+	Project `json:"project" yaml:"project"`
+	User    `json:"user" yaml:"user"`
 
-	Password string `yaml:"password"`
-	Passcode string `yaml:"passcode"`
+	Password string `json:"password" yaml:"password"`
+	Passcode string `json:"passcode" yaml:"passcode"`
 
-	IdentityAPIVersion string `yaml:"identityAPIVersion"`
-	ImageAPIVersion    string `yaml:"imageAPIVersion"`
+	IdentityAPIVersion string `json:"identityAPIVersion" yaml:"identityAPIVersion"`
+	ImageAPIVersion    string `json:"imageAPIVersion" yaml:"imageAPIVersion"`
 
-	Scope *gophercloud.AuthScope `yaml:"scope"`
+	Scope *gophercloud.AuthScope `json:"scope" yaml:"scope"`
 }
 
 type Auth struct {
-	Type string `yaml:"type"`
-	Url  string `yaml:"url"`
+	Type string `json:"type" yaml:"type"`
+	Url  string `json:"url" yaml:"url"`
 }
 
 type Tenant struct {
-	ID     string `yaml:"id"`
-	Name   string `yaml:"name"`
-	Domain `yaml:"domain"`
+	ID     string `json:"id" yaml:"id"`
+	Name   string `json:"name" yaml:"name"`
+	Domain `json:"domain" yaml:"domain"`
 }
 
 type Project struct {
-	ID     string `yaml:"id"`
-	Name   string `yaml:"name"`
-	Domain `yaml:"domain"`
+	ID     string `json:"id" yaml:"id"`
+	Name   string `json:"name" yaml:"name"`
+	Domain `json:"domain" yaml:"domain"`
 }
 
 type User struct {
-	ID     string `yaml:"id"`
-	Name   string `yaml:"name"`
-	Domain `yaml:"domain"`
+	ID     string `json:"id" yaml:"id"`
+	Name   string `json:"name" yaml:"name"`
+	Domain `json:"domain" yaml:"domain"`
 }
 
 type Domain struct {
-	ID   string `yaml:"id"`
-	Name string `yaml:"name"`
+	ID   string `json:"id" yaml:"id"`
+	Name string `json:"name" yaml:"name"`
 }
 
 func ConfFile(confFile string) Option {

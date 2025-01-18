@@ -7,15 +7,15 @@ var (
 type Option func(*Options)
 
 type Options struct {
-	Url string `validate:"required"`
-	Org string
-	Auth
-	TlsInsecureSkipVerify bool
-	Timeout               uint
+	Url                   string `json:"url" yaml:"url"`
+	Org                   string `json:"org" yaml:"org"`
+	Auth                  `json:"auth" yaml:"auth"`
+	TlsInsecureSkipVerify bool `json:"tlsInsecureSkipVerify" yaml:"tlsInsecureSkipVerify"`
+	Timeout               uint `json:"timeout" yaml:"timeout"`
 }
 
 type Auth struct {
-	Token string
+	Token string `json:"token" yaml:"token"`
 }
 
 func Url(url string) Option {

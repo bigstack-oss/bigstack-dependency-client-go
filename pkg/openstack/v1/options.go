@@ -13,29 +13,29 @@ var (
 )
 
 type Options struct {
-	ConfFile         string `json:"confFile"`
-	IdentityEndpoint string `json:"identityEndpoint"`
-	AuthType         string `json:"authType"`
+	ConfFile         string `json:"confFile" yaml:"confFile"`
+	IdentityEndpoint string `json:"identityEndpoint" yaml:"identityEndpoint"`
+	AuthType         string `json:"authType" yaml:"authType"`
 
-	UserID   string `json:"userID"`
-	Username string `json:"username"`
+	UserID   string `json:"userID" yaml:"userID"`
+	Username string `json:"username" yaml:"username"`
 
-	Password string `json:"password"`
-	Passcode string `json:"passcode"`
+	Password string `json:"password" yaml:"password"`
+	Passcode string `json:"passcode" yaml:"passcode"`
 
-	TenantID    string `json:"tenantID"`
-	TenantName  string `json:"tenantName"`
-	ProjectName string `json:"projectName"`
+	TenantID    string `json:"tenantID" yaml:"tenantID"`
+	TenantName  string `json:"tenantName" yaml:"tenantName"`
+	ProjectName string `json:"projectName" yaml:"projectName"`
 
-	DomainID          string `json:"domainID"`
-	DomainName        string `json:"domainName"`
-	ProjectDomainName string `json:"projectDomainName"`
-	UserDomainName    string `json:"userDomainName"`
+	DomainID          string `json:"domainID" yaml:"domainID"`
+	DomainName        string `json:"domainName" yaml:"domainName"`
+	ProjectDomainName string `json:"projectDomainName" yaml:"projectDomainName"`
+	UserDomainName    string `json:"userDomainName" yaml:"userDomainName"`
 
-	IdentityAPIVersion string `json:"identityAPIVersion"`
-	ImageAPIVersion    string `json:"imageAPIVersion"`
+	IdentityAPIVersion string `json:"identityAPIVersion" yaml:"identityAPIVersion"`
+	ImageAPIVersion    string `json:"imageAPIVersion" yaml:"imageAPIVersion"`
 
-	Scope *gophercloud.AuthScope `json:"scope"`
+	Scope *gophercloud.AuthScope `json:"scope" yaml:"scope"`
 }
 
 func ConfFile(confFile string) Option {

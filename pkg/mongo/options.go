@@ -7,22 +7,22 @@ var (
 type Option func(*Options)
 
 type Options struct {
-	Uri string `validate:"required"`
-	Auth
-	ReplicaSet string
-	Connect    string
+	Uri        string `json:"uri" yaml:"uri"`
+	Auth       `json:"auth" yaml:"auth"`
+	ReplicaSet string `json:"replicaSet" yaml:"replicaSet"`
+	Connect    string `json:"connect" yaml:"connect"`
 
-	Database    string
-	Collection  string
-	Databases   map[string]string
-	Collections map[string]string
+	Database    string            `json:"database" yaml:"database"`
+	Collection  string            `json:"collection" yaml:"collection"`
+	Databases   map[string]string `json:"databases" yaml:"databases"`
+	Collections map[string]string `json:"collections" yaml:"collections"`
 }
 
 type Auth struct {
-	Enable   bool
-	Source   string
-	Username string
-	Password string
+	Enable   bool   `json:"enable" yaml:"enable"`
+	Source   string `json:"source" yaml:"source"`
+	Username string `json:"username" yaml:"username"`
+	Password string `json:"password" yaml:"password"`
 }
 
 func Uri(uri string) Option {
