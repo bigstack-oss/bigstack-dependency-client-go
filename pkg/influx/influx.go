@@ -3,7 +3,6 @@ package influx
 import (
 	"context"
 	"sync"
-	"time"
 
 	influxv2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/influxdata/influxdb-client-go/v2/api"
@@ -69,12 +68,6 @@ func NewGlobalHelper(opts ...Option) error {
 
 func GetGlobalHelper() *Helper {
 	return helper
-}
-
-func (h *Helper) GetQueryCursor(query string) (*api.QueryTableResult, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
-	defer cancel()
-	return h.QueryApiClient.Query(ctx, query)
 }
 
 func (h *Helper) Close() {
