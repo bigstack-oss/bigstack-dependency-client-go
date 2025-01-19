@@ -32,8 +32,12 @@ type Options struct {
 }
 
 type Auth struct {
-	Type string `json:"type" yaml:"type"`
-	Url  string `json:"url" yaml:"url"`
+	Type     string `json:"type" yaml:"type"`
+	Url      string `json:"url" yaml:"url"`
+	Username string `json:"username" yaml:"username"`
+	Password string `json:"password" yaml:"password"`
+	Token    string `json:"token" yaml:"token"`
+	Project  `json:"project" yaml:"project"`
 }
 
 type Tenant struct {
