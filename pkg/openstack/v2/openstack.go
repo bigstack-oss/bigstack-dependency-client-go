@@ -80,15 +80,14 @@ func newProvider(opts ...Option) (*gophercloud.ProviderClient, error) {
 		return nil, err
 	}
 
+	finalOpts, err := genAuthOpts(syncedOpts)
+	if err != nil {
+		return nil, err
+	}
+
 	return openstack.AuthenticatedClient(
 		context.Background(),
-		gophercloud.AuthOptions{
-			IdentityEndpoint: syncedOpts.Auth.Url,
-			Username:         syncedOpts.User.Name,
-			Password:         syncedOpts.Password,
-			TenantName:       syncedOpts.Project.Name,
-			DomainName:       syncedOpts.Domain.Name,
-		},
+		finalOpts,
 	)
 }
 
@@ -103,6 +102,20 @@ func syncOptions(opts []Option) (*Options, error) {
 	}
 
 	return options, nil
+}
+
+func genAuthOpts(opts *Options) (gophercloud.AuthOptions, error) {
+	if opts.Auth.Type == "env" {
+		return openstack.AuthOptionsFromEnv()
+	}
+
+	return gophercloud.AuthOptions{
+		IdentityEndpoint: opts.Auth.Url,
+		Username:         opts.User.Name,
+		Password:         opts.Password,
+		TenantName:       opts.Project.Name,
+		DomainName:       opts.Domain.Name,
+	}, nil
 }
 
 func NewConf() (*Options, error) {
