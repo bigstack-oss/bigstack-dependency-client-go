@@ -3,6 +3,7 @@ package openstack
 import (
 	"context"
 	"os"
+	"sync"
 
 	"github.com/gophercloud/gophercloud/v2"
 	"github.com/gophercloud/gophercloud/v2/openstack"
@@ -10,7 +11,10 @@ import (
 )
 
 var (
-	Opts *Options
+	Opts   *Options
+	helper *Helper
+
+	once sync.Once
 )
 
 type Helper struct {
@@ -26,6 +30,29 @@ type Helper struct {
 }
 
 type Option func(*Options)
+
+func GetGlobalHelper() *Helper {
+	return helper
+}
+
+func NewGlobalHelper(opts ...Option) error {
+	var h *Helper
+	var err error
+
+	once.Do(func() {
+		h, err = NewHelper(opts...)
+		if err != nil {
+			return
+		}
+
+		helper = h
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func NewHelper(opts ...Option) (*Helper, error) {
 	provider, err := newProvider(opts...)
