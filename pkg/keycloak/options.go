@@ -3,11 +3,15 @@ package keycloak
 type Option func(*Options)
 
 type Options struct {
-	Host     string `json:"host" yaml:"host"`
+	Host                  string `json:"host" yaml:"host"`
+	TlsInsecureSkipVerify bool   `json:"tlsInsecureSkipVerify" yaml:"tlsInsecureSkipVerify"`
+	Auth                  `json:"auth" yaml:"auth"`
+}
+
+type Auth struct {
+	Realm    string `json:"realm" yaml:"realm"`
 	Username string `json:"username" yaml:"username"`
 	Password string `json:"password" yaml:"password"`
-	Realm    string `json:"realm" yaml:"realm"`
-	Insecure bool   `json:"insecure" yaml:"insecure"`
 }
 
 func Host(host string) Option {
@@ -16,26 +20,26 @@ func Host(host string) Option {
 	}
 }
 
+func Insecure(insecure bool) Option {
+	return func(o *Options) {
+		o.TlsInsecureSkipVerify = insecure
+	}
+}
+
 func Username(username string) Option {
 	return func(o *Options) {
-		o.Username = username
+		o.Auth.Username = username
 	}
 }
 
 func Password(password string) Option {
 	return func(o *Options) {
-		o.Password = password
+		o.Auth.Password = password
 	}
 }
 
 func Realm(realm string) Option {
 	return func(o *Options) {
-		o.Realm = realm
-	}
-}
-
-func Insecure(insecure bool) Option {
-	return func(o *Options) {
-		o.Insecure = insecure
+		o.Auth.Realm = realm
 	}
 }

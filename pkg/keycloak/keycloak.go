@@ -96,7 +96,7 @@ func (h *Helper) SetKeycloakClient() error {
 }
 
 func (h *Helper) LoginAdmin() error {
-	if h.Options.Insecure {
+	if h.Options.TlsInsecureSkipVerify {
 		h.Client.RestyClient().SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
 	}
 
