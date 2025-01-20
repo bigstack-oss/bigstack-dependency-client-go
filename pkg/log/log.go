@@ -22,6 +22,25 @@ func newEncoder() zapcore.Encoder {
 	conf.ConsoleSeparator = "  "
 	conf.EncodeTime = zapcore.ISO8601TimeEncoder
 	conf.EncodeLevel = zapcore.CapitalLevelEncoder
+	conf.EncodeLevel = func(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder) {
+		switch l {
+		case zapcore.DebugLevel:
+			enc.AppendString("DEBU")
+		case zapcore.InfoLevel:
+			enc.AppendString("INFO")
+		case zapcore.WarnLevel:
+			enc.AppendString("WARN")
+		case zapcore.ErrorLevel:
+			enc.AppendString("ERRO")
+		case zapcore.DPanicLevel:
+			enc.AppendString("DPAN")
+		case zapcore.PanicLevel:
+			enc.AppendString("PANI")
+		case zapcore.FatalLevel:
+			enc.AppendString("FATA")
+		}
+	}
+
 	return zapcore.NewConsoleEncoder(conf)
 }
 
