@@ -48,16 +48,12 @@ func NewHelper(opts ...Option) (*Helper, error) {
 }
 
 func NewGlobalHelper(opts ...Option) error {
-	var h *Helper
 	var err error
-
 	once.Do(func() {
-		h, err = NewHelper(opts...)
+		helper, err = NewHelper(opts...)
 		if err != nil {
 			return
 		}
-
-		helper = h
 	})
 	if err != nil {
 		return err

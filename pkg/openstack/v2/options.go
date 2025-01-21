@@ -32,12 +32,13 @@ type Options struct {
 }
 
 type Auth struct {
-	Type     string `json:"type" yaml:"type"`
-	Url      string `json:"url" yaml:"url"`
-	Username string `json:"username" yaml:"username"`
-	Password string `json:"password" yaml:"password"`
-	Token    string `json:"token" yaml:"token"`
-	Project  `json:"project" yaml:"project"`
+	Type            string `json:"type" yaml:"type"`
+	Url             string `json:"url" yaml:"url"`
+	Username        string `json:"username" yaml:"username"`
+	Password        string `json:"password" yaml:"password"`
+	Token           string `json:"token" yaml:"token"`
+	Project         `json:"project" yaml:"project"`
+	EnableAutoRenew bool `json:"enableAutoRenew" yaml:"enableAutoRenew"`
 }
 
 type Tenant struct {
@@ -102,6 +103,12 @@ func Password(password string) Option {
 func Passcode(passcode string) Option {
 	return func(o *Options) {
 		o.Passcode = passcode
+	}
+}
+
+func EnableAutoRenew(enableAutoRenew bool) Option {
+	return func(o *Options) {
+		o.Auth.EnableAutoRenew = enableAutoRenew
 	}
 }
 
