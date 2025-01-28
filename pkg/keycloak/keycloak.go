@@ -18,8 +18,10 @@ var (
 
 type Client interface {
 	RestyClient() *resty.Client
+	Login(context.Context, string, string, string, string, string) (*gocloak.JWT, error)
 	LoginAdmin(context.Context, string, string, string) (*gocloak.JWT, error)
 	GetUsers(context.Context, string, string, gocloak.GetUsersParams) ([]*gocloak.User, error)
+	CreateClient(context.Context, string, string, gocloak.Client) (string, error)
 	LogoutUserSession(context.Context, string, string, string) error
 }
 
@@ -119,4 +121,10 @@ func (h *Helper) LogoutUserSession(realm, sessionID string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute*10)
 	defer cancel()
 	return h.Client.LogoutUserSession(ctx, h.Token, realm, sessionID)
+}
+
+func (h *Helper) CreateClient(realm string, opts gocloak.Client) (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute*10)
+	defer cancel()
+	return h.Client.CreateClient(ctx, h.Token, realm, opts)
 }
