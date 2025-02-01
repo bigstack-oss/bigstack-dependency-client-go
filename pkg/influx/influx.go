@@ -4,6 +4,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/bigstack-oss/bigstack-dependency-go/pkg/wait"
 	influxv2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/influxdata/influxdb-client-go/v2/api"
 )
@@ -64,6 +65,12 @@ func NewGlobalHelper(opts ...Option) error {
 
 func GetGlobalHelper() *Helper {
 	return helper
+}
+
+func GetQueryCursor(stmt string) (*api.QueryTableResult, context.CancelFunc, error) {
+	ctx, cancel := context.WithTimeout(wait.CtxSeconds(60))
+	c, err := helper.QueryApiClient.Query(ctx, stmt)
+	return c, cancel, err
 }
 
 func (h *Helper) Close() {
